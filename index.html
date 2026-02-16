@@ -361,22 +361,22 @@
     const menuIcon = menuBtn.querySelector('i');
 
     function toggleMenu() {
-        if (mobileMenu.classList.contains('hidden')) {
-            mobileMenu.classList.remove('hidden');
-            mobileMenu.classList.add('flex');
-            document.body.style.overflow = 'hidden'; // Sayfayı kilitle
-            
-            // Butonu menünün de üstüne çıkarıyoruz ki 'X' tıklanabilsin
-            menuBtn.classList.add('fixed', 'right-8', 'top-8', 'z-[1001]');
-            menuIcon.classList.replace('fa-bars', 'fa-xmark');
-        } else {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.classList.remove('flex');
-            document.body.style.overflow = 'auto'; // Kilidi aç
-            
-            // Butonu eski haline döndür
-            menuBtn.classList.remove('fixed', 'right-8', 'top-8', 'z-[1001]');
-            menuIcon.classList.replace('fa-xmark', 'fa-bars');
+    const isHidden = mobileMenu.classList.contains('hidden');
+    if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        document.body.style.overflow = 'hidden'; // Sayfayı kilitle
+        
+        // Butonu beyaz yap ve en üste (z-1001) sabitle
+        menuBtn.classList.add('fixed', 'right-8', 'top-8', 'z-[1001]', 'text-white');
+        menuIcon.classList.replace('fa-bars', 'fa-xmark');
+    } else {
+        mobileMenu.classList.replace('flex', 'hidden');
+        document.body.style.overflow = 'auto'; // Kilidi aç
+        
+        // Butonu eski stiline döndür
+        menuBtn.classList.remove('fixed', 'right-8', 'top-8', 'z-[1001]', 'text-white');
+        menuIcon.classList.replace('fa-xmark', 'fa-bars');
         }
     }
 
