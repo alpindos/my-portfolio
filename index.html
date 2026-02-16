@@ -368,15 +368,15 @@
         document.body.style.overflow = 'hidden'; // Sayfayı kilitle
         
         // Butonu beyaz yap ve en üste (z-1001) sabitle
-        menuBtn.classList.add('fixed', 'right-8', 'top-8', 'z-[1001]', 'text-white');
-        menuIcon.classList.replace('fa-bars', 'fa-xmark');
+        menuBtn.classList.add('fixed', 'right-8', 'top-8', 'z-[9999]', 'text-white');
+        menuIcon.classList.replace('fa-bars', 'fa-times');
     } else {
         mobileMenu.classList.replace('flex', 'hidden');
         document.body.style.overflow = 'auto'; // Kilidi aç
         
         // Butonu eski stiline döndür
         menuBtn.classList.remove('fixed', 'right-8', 'top-8', 'z-[1001]', 'text-white');
-        menuIcon.classList.replace('fa-xmark', 'fa-bars');
+        menuIcon.classList.replace('fa-times', 'fa-bars');
         }
     }
 
