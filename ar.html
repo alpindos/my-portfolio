@@ -341,5 +341,16 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             });
     </script>
+    <script>
+    // Sayfa her yüklendiğinde veya yenilendiğinde en üste kaydırır
+    window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+    };
+
+    // Bazı tarayıcıların "scroll restoration" (kaydırma geri yükleme) özelliğini devre dışı bırakır
+    if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+    }
+    </script>
 </body>
 </html>
