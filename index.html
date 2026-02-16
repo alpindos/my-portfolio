@@ -14,6 +14,58 @@
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200">
+    <button id="menu-btn" class="block md:hidden text-white focus:outline-none z-50">
+    <i class="fa-solid fa-bars text-2xl"></i>
+    </button>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-900/98 z-[100] hidden flex-col items-center justify-center p-6 transition-all duration-300">
+        <div class="flex flex-col items-center gap-10">
+            <a href="#about" class="mobile-link text-white text-3xl font-bold hover:text-blue-400">About</a>
+            <a href="#journey" class="mobile-link text-white text-3xl font-bold hover:text-blue-400">Journey</a>
+            <a href="#skills" class="mobile-link text-white text-3xl font-bold hover:text-blue-400">Skills</a>
+            
+            <hr class="w-20 border-slate-700">
+            
+            <div class="grid grid-cols-2 gap-4">
+                <a href="index.html" class="text-base border border-slate-700 px-6 py-2 rounded-lg text-white text-center">EN</a>
+                <a href="tr.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center">TR</a>
+                <a href="fr.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center">FR</a>
+                <a href="ar.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center">AR</a>
+            </div>
+        </div>
+    </div>
+<script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuBtn.addEventListener('click', () => {
+        // Toggle mantığı yerine direkt sınıf kontrolü
+        if (mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Sayfayı kilitle
+            menuBtn.classList.add('z-[110]'); // Butonu menünün de üstüne çıkar
+        } else {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            document.body.style.overflow = 'auto'; // Kilidi aç
+        }
+        
+        const icon = menuBtn.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-xmark');
+    });
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+            menuBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+        });
+    });
+</script>
 
 <div class="w-full border-b border-white/5 py-2 flex justify-end px-8 gap-5 bg-slate-950/40 backdrop-blur-md">
     
@@ -52,45 +104,6 @@
             <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
 
         </div>
-        <button id="menu-btn" class="block md:hidden text-white focus:outline-none z-50">
-        <i class="fa-solid fa-bars text-2xl"></i>
-        </button>
-
-        <div id="mobile-menu" class="fixed inset-0 bg-slate-900/98 z-[40] hidden flex-col items-center justify-center gap-8 transition-all duration-300">
-            <a href="#about" class="mobile-link text-white text-2xl font-bold hover:text-blue-400 transition-colors">About</a>
-            <a href="#journey" class="mobile-link text-white text-2xl font-bold hover:text-blue-400 transition-colors">Journey</a>
-            <a href="#skills" class="mobile-link text-white text-2xl font-bold hover:text-blue-400 transition-colors">Skills</a>
-            <hr class="w-16 border-slate-700 my-4">
-    
-            <div class="flex gap-4">
-                <a href="index.html" class="text-sm border border-slate-700 px-4 py-2 rounded-lg text-white hover:bg-blue-600 transition-all">EN</a>
-                <a href="tr.html" class="text-sm border border-slate-700 px-4 py-2 rounded-lg text-white hover:bg-blue-600 transition-all">TR</a>
-                <a href="fr.html" class="text-sm border border-slate-700 px-4 py-2 rounded-lg text-white hover:bg-blue-600 transition-all">FR</a>
-                <a href="ar.html" class="text-sm border border-slate-700 px-4 py-2 rounded-lg text-white hover:bg-blue-600 transition-all">AR</a>
-            </div>
-        </div>
-        <script>
-            const menuBtn = document.getElementById('menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-            // Menüyü Aç/Kapat
-            menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
-            // İkonu değiştir (Bars -> X)
-            const icon = menuBtn.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
-            });
-            // Linklerden birine tıklanınca menüyü kapat
-            mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.classList.remove('flex');
-            menuBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
-            });
-            });
-        </script>
     </nav>
     <section id="about" class="min-h-screen hero-gradient flex flex-col justify-start items-center px-6 text-center pt-24 md:pt-28">
         <div class="mb-8 relative group flex justify-center items-center">
