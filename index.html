@@ -351,35 +351,41 @@
     history.scrollRestoration = 'manual';
     }
     </script>
-    <script>
+<script>
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileLinks = document.querySelectorAll('.mobile-link');
     const menuIcon = menuBtn.querySelector('i');
 
-    menuBtn.addEventListener('click', () => {
-        if (mobileMenu.classList.contains('hidden')) {
+    function toggleMenu() {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        if (isHidden) {
             mobileMenu.classList.remove('hidden');
             mobileMenu.classList.add('flex');
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Kaydırmayı engelle
             menuIcon.classList.replace('fa-bars', 'fa-xmark');
-            // Menü açıldığında butonu sabit tutmak için (isteğe bağlı)
-            menuBtn.classList.add('fixed', 'right-8', 'top-4'); 
+            menuBtn.classList.add('fixed', 'right-8', 'top-4'); // Butonu sabitle
         } else {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.classList.remove('flex');
-            document.body.style.overflow = 'auto';
+            mobileMenu.classList.replace('flex', 'hidden');
+            document.body.style.overflow = 'auto'; // Kaydırmayı aç
             menuIcon.classList.replace('fa-xmark', 'fa-bars');
             menuBtn.classList.remove('fixed', 'right-8', 'top-4');
         }
-    });
+    }
 
+    menuBtn.addEventListener('click', toggleMenu);
+
+    // Linklere tıklandığında hem menüyü kapat hem de sayfayı kaydır
     mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.replace('flex', 'hidden');
-            document.body.style.overflow = 'auto';
-            menuIcon.classList.replace('fa-xmark', 'fa-bars');
-            menuBtn.classList.remove('fixed', 'right-8', 'top-4');
+        link.addEventListener('click', (e) => {
+            toggleMenu(); // Önce menüyü kapat
+            
+            // Yumuşak kaydırma garantisi
+            const targetId = link.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
         });
     });
 </script>
