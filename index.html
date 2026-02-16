@@ -14,19 +14,20 @@
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200">
-    <div id="mobile-menu" class="fixed inset-0 bg-slate-900/bg-slate-950 z-[999] hidden flex-col items-center justify-center p-6 transition-all duration-300">
-        <div class="flex flex-col items-center gap-10">
-            <a href="#about" class="mobile-link text-white text-3xl font-bold hover:text-blue-400">About</a>
-            <a href="#journey" class="mobile-link text-white text-3xl font-bold hover:text-blue-400">Journey</a>
-            <a href="#skills" class="mobile-link text-white text-3xl font-bold hover:text-blue-400">Skills</a>
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-950 z-[999] hidden flex-col items-center justify-center p-6 transition-all duration-300">
+        <div class="flex flex-col items-center gap-12">
+            <a href="#about" class="mobile-link relative z-[1000] text-white text-3xl font-bold hover:text-blue-400">About</a>
+            <a href="#education" class="mobile-link relative z-[1000] text-white text-3xl font-bold hover:text-blue-400">Education</a>
+            <a href="#career" class="mobile-link relative z-[1000] text-white text-3xl font-bold hover:text-blue-400">Career</a>
+            <a href="#skills" class="mobile-link relative z-[1000] text-white text-3xl font-bold hover:text-blue-400">Skills</a>
             
-            <hr class="w-20 border-slate-700">
+            <hr class="w-20 border-slate-800">
             
-            <div class="grid grid-cols-2 gap-4">
-                <a href="index.html" class="text-base border border-slate-700 px-6 py-2 rounded-lg text-white text-center">EN</a>
-                <a href="tr.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center">TR</a>
-                <a href="fr.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center">FR</a>
-                <a href="ar.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center">AR</a>
+            <div class="grid grid-cols-2 gap-4 relative z-[1000]">
+                <a href="index.html" class="text-base border border-slate-700 px-6 py-2 rounded-lg text-white text-center bg-slate-900">EN</a>
+                <a href="tr.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center bg-slate-900">TR</a>
+                <a href="fr.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center bg-slate-900">FR</a>
+                <a href="ar.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center bg-slate-900">AR</a>
             </div>
         </div>
     </div>
@@ -358,34 +359,30 @@
     const menuIcon = menuBtn.querySelector('i');
 
     function toggleMenu() {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        if (isHidden) {
+        if (mobileMenu.classList.contains('hidden')) {
             mobileMenu.classList.remove('hidden');
             mobileMenu.classList.add('flex');
-            document.body.style.overflow = 'hidden'; // Kaydırmayı engelle
+            document.body.style.overflow = 'hidden'; // Sayfayı kilitle
+            
+            // Butonu menünün de üstüne çıkarıyoruz ki 'X' tıklanabilsin
+            menuBtn.classList.add('fixed', 'right-8', 'top-8', 'z-[1001]');
             menuIcon.classList.replace('fa-bars', 'fa-xmark');
-            menuBtn.classList.add('fixed', 'right-8', 'top-4'); // Butonu sabitle
         } else {
-            mobileMenu.classList.replace('flex', 'hidden');
-            document.body.style.overflow = 'auto'; // Kaydırmayı aç
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            document.body.style.overflow = 'auto'; // Kilidi aç
+            
+            // Butonu eski haline döndür
+            menuBtn.classList.remove('fixed', 'right-8', 'top-8', 'z-[1001]');
             menuIcon.classList.replace('fa-xmark', 'fa-bars');
-            menuBtn.classList.remove('fixed', 'right-8', 'top-4');
         }
     }
 
     menuBtn.addEventListener('click', toggleMenu);
 
-    // Linklere tıklandığında hem menüyü kapat hem de sayfayı kaydır
     mobileLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            toggleMenu(); // Önce menüyü kapat
-            
-            // Yumuşak kaydırma garantisi
-            const targetId = link.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
+        link.addEventListener('click', () => {
+            toggleMenu(); // Linke tıklayınca menüyü kapat
         });
     });
 </script>
