@@ -22,6 +22,9 @@
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200">
+    <button id="menu-btn" class="fixed right-6 top-6 z-[1001] md:hidden text-white p-3 bg-slate-900/50 rounded-lg backdrop-blur-md border border-white/10">
+        <i class="fa-solid fa-bars text-2xl"></i>
+    </button>
     <div id="mobile-menu" class="fixed inset-0 bg-slate-950 z-[999] hidden flex-col items-center justify-center p-6 transition-all duration-300">
         <div class="flex flex-col items-center gap-12">
             <a href="#about" class="mobile-link relative z-[1000] text-white text-xl font-bold hover:text-blue-400">About</a>
@@ -69,9 +72,7 @@
         <div class="text-xl font-bold tracking-tighter text-blue-400">
             <a href="#about" class="hover:text-slate-200 transition">MY PORTFOLIO</a>
         </div>
-        <button id="menu-btn" class="block md:hidden text-white focus:outline-none relative z-[110]">
-        <i class="fa-solid fa-bars text-2xl"></i>
-        </button>
+        
         <div class="hidden md:flex gap-8 text-xs uppercase tracking-widest font-semibold">
             <a href="#about" class="hover:text-blue-400 transition">About</a>
             <a href="#education" class="hover:text-blue-400 transition">Education</a>
@@ -365,34 +366,32 @@
 <script>
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
     const menuIcon = menuBtn.querySelector('i');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
 
-    function toggleMenu() {
-    const isHidden = mobileMenu.classList.contains('hidden');
-    if (isHidden) {
-        mobileMenu.classList.remove('hidden');
-        mobileMenu.classList.add('flex');
-        document.body.style.overflow = 'hidden'; // Sayfayı kilitle
+    menuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.contains('hidden');
         
-        // Butonu beyaz yap ve en üste (z-1001) sabitle
-        menuBtn.classList.add('fixed', 'right-8', 'top-8', 'z-[9999]', 'text-white');
-        menuIcon.classList.replace('fa-bars', 'fa-times');
-    } else {
-        mobileMenu.classList.replace('flex', 'hidden');
-        document.body.style.overflow = 'auto'; // Kilidi aç
-        
-        // Butonu eski stiline döndür
-        menuBtn.classList.remove('fixed', 'right-8', 'top-8', 'z-[1001]', 'text-white');
-        menuIcon.classList.replace('fa-times', 'fa-bars');
+        if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            // İkonu zorla değiştir
+            menuIcon.className = 'fa-solid fa-xmark text-2xl'; 
+        } else {
+            mobileMenu.classList.replace('flex', 'hidden');
+            document.body.style.overflow = 'auto';
+            // İkonu geri getir
+            menuIcon.className = 'fa-solid fa-bars text-2xl';
         }
-    }
+    });
 
-    menuBtn.addEventListener('click', toggleMenu);
-
+    // Linklere tıklayınca menüyü kapatmayı unutma
     mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
-            toggleMenu(); // Linke tıklayınca menüyü kapat
+            mobileMenu.classList.replace('flex', 'hidden');
+            document.body.style.overflow = 'auto';
+            menuIcon.className = 'fa-solid fa-bars text-2xl';
         });
     });
 </script>
