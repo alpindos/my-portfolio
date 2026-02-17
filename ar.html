@@ -383,19 +383,14 @@
         function toggleMenu() {
             const isHidden = mobileMenu.classList.contains('hidden');
             if (isHidden) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-                document.body.style.overflow = 'hidden'; // Sayfayı kilitle
-                
-                // Butonu solda sabitle ve X yap
-                menuBtn.classList.add('fixed', 'left-6', 'top-8', 'z-[1001]', 'text-white');
+                mobileMenu.classList.replace('hidden', 'flex');
+                document.body.style.overflow = 'hidden';
+                // Sadece ikonu değiştiriyoruz, yerleşim sınıflarına dokunmuyoruz
                 menuIcon.className = 'fa-solid fa-xmark text-xl'; 
             } else {
                 mobileMenu.classList.replace('flex', 'hidden');
-                document.body.style.overflow = 'auto'; // Kilidi aç
-                
-                // Butonu eski haline getir
-                menuBtn.classList.remove('fixed', 'left-6', 'top-8', 'z-[1001]', 'text-white');
+                document.body.style.overflow = 'auto';
+                // İkonu eski haline getiriyoruz
                 menuIcon.className = 'fa-solid fa-bars text-xl';
             }
         }
