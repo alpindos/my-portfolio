@@ -374,20 +374,43 @@
     history.scrollRestoration = 'manual';
     }
     </script>
-    function toggleMenu() {
-    const isHidden = mobileMenu.classList.contains('hidden');
-    if (isHidden) {
-        mobileMenu.classList.replace('hidden', 'flex');
-        document.body.style.overflow = 'hidden';
-        // DİKKAT: Buradaki 'right-6' değerini 'left-6' yapıyoruz
-        menuBtn.classList.add('fixed', 'left-6', 'top-8', 'z-[1001]', 'text-white');
-        menuIcon.className = 'fa-solid fa-xmark text-xl'; 
-    } else {
-        mobileMenu.classList.replace('flex', 'hidden');
-        document.body.style.overflow = 'auto';
-        menuBtn.classList.remove('fixed', 'left-6', 'top-8', 'z-[1001]', 'text-white');
-        menuIcon.className = 'fa-solid fa-bars text-xl';
-    }
-}
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = menuBtn.querySelector('i');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                document.body.style.overflow = 'hidden'; // Sayfayı kilitle
+                
+                // Butonu solda sabitle ve X yap
+                menuBtn.classList.add('fixed', 'left-6', 'top-8', 'z-[1001]', 'text-white');
+                menuIcon.className = 'fa-solid fa-xmark text-xl'; 
+            } else {
+                mobileMenu.classList.replace('flex', 'hidden');
+                document.body.style.overflow = 'auto'; // Kilidi aç
+                
+                // Butonu eski haline getir
+                menuBtn.classList.remove('fixed', 'left-6', 'top-8', 'z-[1001]', 'text-white');
+                menuIcon.className = 'fa-solid fa-bars text-xl';
+            }
+        }
+        
+        // Tıklama olayını butona bağla
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // Menü linklerine tıklandığında menüyü kapat
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
