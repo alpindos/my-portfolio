@@ -11,10 +11,39 @@
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .hero-gradient { background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%); }
+
+        #menu-btn {
+        pointer-events: auto !important; /* Tıklanabilirliği zorla açar */
+        cursor: pointer;
+        }
+        #menu-btn.text-white i {
+        color: white !important; /* Rengi zorla beyaz yapar */
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200">
-
+    <button id="menu-btn" class="fixed right-6 top-8 z-[1001] md:hidden text-white p-2.5 bg-slate-900/50 rounded-lg backdrop-blur-md border border-white/10 flex items-center justify-center">
+        <i class="fa-solid fa-bars text-xl"></i>
+    </button>
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-950 z-[999] hidden flex-col items-center justify-center p-6 transition-all duration-300">
+        <div class="flex flex-col items-center gap-12">
+            <a href="#about" class="mobile-link relative z-[1000] text-white text-xl font-bold hover:text-blue-400">About</a>
+            <a href="#education" class="mobile-link relative z-[1000] text-white text-xl font-bold hover:text-blue-400">Education</a>
+            <a href="#career" class="mobile-link relative z-[1000] text-white text-xl font-bold hover:text-blue-400">Career</a>
+            <a href="#growth" class="mobile-link relative z-[1000] text-white text-xl font-bold hover:text-blue-400">Skills</a>
+            <a href="#interests" class="mobile-link relative z-[1000] text-white text-xl font-bold hover:text-blue-400">Interests</a>
+            <a href="#contact" class="mobile-link relative z-[1000] text-white text-xl font-bold hover:text-blue-400">Contact</a>
+            
+            <hr class="w-20 border-slate-800">
+            
+            <div class="grid grid-cols-2 gap-4" dir="ltr">
+                <a href="index.html" class="text-sm border border-blue-500 bg-blue-500/10 px-6 py-2 rounded-lg text-white text-center">EN</a>
+                <a href="tr.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center hover:bg-blue-600 transition-all">TR</a>
+                <a href="fr.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center hover:bg-blue-600 transition-all">FR</a>
+                <a href="ar.html" class="text-sm border border-slate-700 px-6 py-2 rounded-lg text-white text-center hover:bg-blue-600 transition-all">AR</a>
+            </div>
+        </div>
+    </div>
 <div class="w-full border-b border-white/5 py-2 flex justify-end px-8 gap-5 bg-slate-950/40 backdrop-blur-md">
     
     <a href="index.html" class="group flex items-center gap-2 transition-all duration-300">
@@ -43,6 +72,7 @@
         <div class="text-xl font-bold tracking-tighter text-blue-400">
             <a href="#about" class="hover:text-slate-200 transition">MY PORTFOLIO</a>
         </div>
+        
         <div class="hidden md:flex gap-8 text-xs uppercase tracking-widest font-semibold">
             <a href="#about" class="hover:text-blue-400 transition">About</a>
             <a href="#education" class="hover:text-blue-400 transition">Education</a>
@@ -333,5 +363,37 @@
     history.scrollRestoration = 'manual';
     }
     </script>
+<script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = menuBtn.querySelector('i');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        
+        if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            // İkonu zorla değiştir
+            menuIcon.className = 'fa-solid fa-xmark text-2xl'; 
+        } else {
+            mobileMenu.classList.replace('flex', 'hidden');
+            document.body.style.overflow = 'auto';
+            // İkonu geri getir
+            menuIcon.className = 'fa-solid fa-bars text-2xl';
+        }
+    });
+
+    // Linklere tıklayınca menüyü kapatmayı unutma
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.replace('flex', 'hidden');
+            document.body.style.overflow = 'auto';
+            menuIcon.className = 'fa-solid fa-bars text-2xl';
+        });
+    });
+</script>
 </body>
 </html>
