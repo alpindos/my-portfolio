@@ -387,13 +387,12 @@
             mobileMenu.classList.remove('hidden');
             mobileMenu.classList.add('flex');
             document.body.style.overflow = 'hidden';
-            // Butonu en üstte ve solda tut
-            menuBtn.classList.add('fixed', 'left-6', 'top-8', 'z-[1001]', 'text-white');
+            // YER DEĞİŞTİRME KODLARINI SİLDİK, SADECE İKONU DEĞİŞTİRİYORUZ
             menuIcon.className = 'fa-solid fa-xmark text-xl'; 
         } else {
             mobileMenu.classList.replace('flex', 'hidden');
             document.body.style.overflow = 'auto';
-            menuBtn.classList.remove('fixed', 'left-6', 'top-8', 'z-[1001]', 'text-white');
+            // SADECE İKONU ESKİ HALİNE GETİRİYORUZ
             menuIcon.className = 'fa-solid fa-bars text-xl';
         }
     }
